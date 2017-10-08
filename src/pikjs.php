@@ -1,0 +1,40 @@
+<?php header('Content-Type: application/javascript'); ?>
+"use strict";
+window['PIKdecoder'] = function() {
+<?php
+include('cpp-functions.js');
+include('ans_params.h.js');
+include('arch_specific.h.js');
+include('cache_aligned.h.js');
+include('bit_reader.h.js');
+include('quantizer.cc.js');
+include('quantizer.h.js');
+include('histogram.h.js');
+include('histogram_decode.cc.js');
+include('lehmer_code.cc.js');
+include('huffman_decode.cc.js');
+include('huffman_decode.h.js');
+include('types.h.js');
+include('opsin_params.h.js');
+include('opsin_inverse.h.js');
+include('opsin_inverse.cc.js');
+include('pik.h.js');
+include('image.h.js');
+include('pik_info.h.js');
+include('header.h.js');
+include('header.cc.js');
+include('bit_buffer.h.js');
+include('dct.cc.js');
+include('dct.h.js');
+include('context_map_decode.cc.js');
+include('context.h.js');
+include('opsin_codec.h.js');
+include('opsin_codec.cc.js');
+include('dc_predictor.cc.js');
+include('status.h.js');
+include('compressed_image.h.js');
+include('compressed_image.cc.js');
+include('pik.cc.js');
+include('main.js');
+?>};
+var pikdecoder=new window['PIKdecoder']();

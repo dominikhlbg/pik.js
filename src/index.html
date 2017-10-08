@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>PIKJS</title>
+<script src="pikjs.min.js"></script>
+<script>
+function loadfile(filename) {
+var request=new XMLHttpRequest();
+   	request.open('get', 'images/'+filename); 
+		if (request.overrideMimeType)
+			request.overrideMimeType('text/plain; charset=x-user-defined');
+		else
+			request.setRequestHeader('Accept-Charset', 'x-user-defined');
+		request.onreadystatechange = function() {
+			if(request.readyState == 4){
+				//if (typeof request.responseBody=='undefined') {
+					var response = request.responseText.split('').map(function(e){return e.charCodeAt(0) & 0xff});
+				/*} else {
+					var response = convertResponseBodyToText(http.responseBody);
+				}*/
+				var speed = document.getElementById('speed');
+				var start = new Date();
+					drawImage(pikdecoder.Decompress(response)); 
+				speed.innerHTML=(new Date()-start)+'ms';
+			} //else alert('Cannot load file. Please, try again');
+		};
+		request.send(null);
+}
+</script>
+</head>
+
+<body>
+<script>
+var pikdecoder=new PIKdecoder();
+var filename='out.pik';loadfile(filename);
+function drawImage(data) {
+	var rgba=data.rgba;
+	var width=data.width;
+	var height=data.height;
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+	canvas.height=height;
+	canvas.width=width;
+var imagedata = ctx.createImageData(width, height);	
+for(var i=0;i<width*height*4;i++)
+	imagedata.data[i]=rgba[i];
+ctx.putImageData(imagedata, 0, 0);
+}
+</script>
+<canvas id="canvas"></canvas><!---->
+<div id="speed"></div>
+</body>
+</html>
